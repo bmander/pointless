@@ -11,15 +11,21 @@ class Pointless(Servable):
         self.root = config['root']
         self.quips = config['quips']
     
-    def index(self):
-        phrase = "%s %s"%(self.root, self.quips[randint(0,len(self.quips)-1)])
+    def index(self,nn=None):
+        # use nn param to avoid repeating a quip
+        quip_index = randint(0,len(self.quips)-1)
+        if nn:
+            while quip_index == nn:
+                quip_index = randint(0,len(self.quips)-1)
+        
+        phrase = "%s %s"%(self.root, self.quips[quip_index])
         
         ret = """<html>
         <head>
         <link rel="stylesheet" type="text/css" href="style.css">
         </head>
-        <body><a href="/">%s</a></body>
-</html>"""%phrase
+        <body><a href="/?nn=%d">%s</a></body>
+</html>"""%(quip_index,phrase)
         
         return ret
     index.path = "/$"
