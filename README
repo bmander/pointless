@@ -1,0 +1,14 @@
+Pointless allows you to create a "Barack Obama Is Your New Bicycle" clone with unnecessary ease.
+
+Prerequisites:
+
+Python 2.6
+Servable (http://servable.appspot.com/)
+
+Running Pointless:
+
+1) Edit config.yaml to your heart's desire
+2) Run "./pointless"
+3) Check out your Pointless website at http://localhost:8080/
+
+If you can't run ./pointless, make it runnable with "chmod a+x pointless"

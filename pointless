@@ -1,0 +1,38 @@
+#!/usr/bin/python2.6
+
+from servable import Servable
+import yaml
+from random import randint
+
+class Pointless(Servable):
+    def __init__(self, config="config.yaml"):
+        config = yaml.load( open(config).read() )
+        self.port = config['port']
+        self.root = config['root']
+        self.quips = config['quips']
+    
+    def index(self):
+        phrase = "%s %s"%(self.root, self.quips[randint(0,len(self.quips)-1)])
+        
+        ret = """<html>
+        <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        </head>
+        <body><a href="/">%s</a></body>
+</html>"""%phrase
+        
+        return ret
+    index.path = "/$"
+    index.mime = "text/html"
+    
+    def style(self):
+        return open("style.css").read()
+    style.mime = "text/css"
+    style.path = "/style.css"
+    
+    def run_test_server(self):
+        Servable.run_test_server(self, self.port)
+        
+if __name__=='__main__':
+    p = Pointless()
+    p.run_test_server()
